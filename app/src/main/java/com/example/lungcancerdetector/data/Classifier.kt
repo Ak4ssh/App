@@ -12,7 +12,7 @@ import java.nio.channels.FileChannel
 class Classifier(context: Context) {
 
     private var tflite: Interpreter? = null
-    private val bufferSize = 4 * 224 * 224 * 3
+    private val bufferSize = 4 * 200 * 200 * 3
 
     init {
         tflite = Interpreter(loadModel(context))
@@ -26,12 +26,12 @@ class Classifier(context: Context) {
     }
 
     fun analyze(bitmap: Bitmap): FloatArray {
-        val scaled = Bitmap.createScaledBitmap(bitmap, 224, 224, true)
+        val scaled = Bitmap.createScaledBitmap(bitmap, 200, 200, true)
         val input = ByteBuffer.allocateDirect(bufferSize)
         input.order(ByteOrder.nativeOrder())
 
-        val pixels = IntArray(224 * 224)
-        scaled.getPixels(pixels, 0, 224, 0, 0, 224, 224)
+        val pixels = IntArray(200 * 200)
+        scaled.getPixels(pixels, 0, 200, 0, 0, 200, 200)
 
         for (pixel in pixels) {
             val r = (pixel shr 16 and 0xFF) / 255.0f
