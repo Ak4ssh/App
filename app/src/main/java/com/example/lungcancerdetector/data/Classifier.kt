@@ -42,7 +42,7 @@ class Classifier(context: Context) {
             input.putFloat(b)
         }
 
-        val output = Array(1) { FloatArray(2) }
+        val output = Array(1) { FloatArray(3) }
         tflite?.run(input, output)
 
         return output[0]

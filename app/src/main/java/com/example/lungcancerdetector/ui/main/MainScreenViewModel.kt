@@ -15,13 +15,22 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
 
   fun analyzeImage(bitmap: Bitmap) {
     val out = classifier.analyze(bitmap)
-    val benign = out[0]
-    val malignant = out[1]
-    
-    _result.value = if (malignant > benign) {
-        "Prediction: Malignant (${(malignant * 100).toInt()}%)"
-    } else {
-        "Prediction: Benign (${(benign * 100).toInt()}%)"
+    var maxIdx = 0
+    var maxVal = out[0]
+    for (i in 1..2) {
+        if (out[i] > maxVal) {
+            maxVal = out[i]
+            maxIdx = i
+        }
     }
+    
+    val label = when (maxIdx) {
+        0 -> "Benign"
+        1 -> "Malignant"
+        2 -> "Normal"
+        else -> "Unknown"
+    }
+    
+    _result.value = "Prediction: $label (${(maxVal * 100).toInt()}%)"
   }
 }
