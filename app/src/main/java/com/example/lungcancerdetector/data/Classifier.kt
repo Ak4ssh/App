@@ -34,9 +34,9 @@ class Classifier(context: Context) {
         scaled.getPixels(pixels, 0, 200, 0, 0, 200, 200)
 
         for (pixel in pixels) {
-            val r = (pixel shr 16 and 0xFF) / 255.0f
-            val g = (pixel shr 8 and 0xFF) / 255.0f
-            val b = (pixel and 0xFF) / 255.0f
+            val r = ((pixel shr 16 and 0xFF) - 127.5f) / 127.5f
+            val g = ((pixel shr 8 and 0xFF) - 127.5f) / 127.5f
+            val b = ((pixel and 0xFF) - 127.5f) / 127.5f
             input.putFloat(r)
             input.putFloat(g)
             input.putFloat(b)
