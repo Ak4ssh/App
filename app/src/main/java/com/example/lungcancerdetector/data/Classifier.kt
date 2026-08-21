@@ -43,6 +43,7 @@ class Classifier(context: Context) {
         }
 
         val output = Array(1) { FloatArray(3) }
+        input.rewind()
         tflite?.run(input, output)
 
         return output[0]
