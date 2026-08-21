@@ -31,7 +31,7 @@ class Classifier(context: Context) {
         input.order(ByteOrder.nativeOrder())
 
         val pixels = IntArray(224 * 224)
-        scaled.getPixels(pixels, 0, 224, 0, 224, 224)
+        scaled.getPixels(pixels, 0, 224, 0, 0, 224, 224)
 
         for (pixel in pixels) {
             val r = (pixel shr 16 and 0xFF) / 255.0f
