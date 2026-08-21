@@ -1,27 +1,27 @@
 package com.example.lungcancerdetector.ui.main
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.lungcancerdetector.data.DataRepository
-import com.example.lungcancerdetector.ui.main.MainScreenUiState.Success
-import kotlinx.coroutines.flow.SharingStarted
+import android.app.Application
+import android.graphics.Bitmap
+import androidx.lifecycle.AndroidViewModel
+import com.example.lungcancerdetector.data.Classifier
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 
-class MainScreenViewModel(dataRepository: DataRepository) : ViewModel() {
-  val uiState: StateFlow<MainScreenUiState> =
-    dataRepository.data
-      .map<List<String>, MainScreenUiState>(::Success)
-      .catch { emit(MainScreenUiState.Error(it)) }
-      .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MainScreenUiState.Loading)
-}
+class MainScreenViewModel(application: Application) : AndroidViewModel(application) {
+  private val classifier = Classifier(application)
+  
+  private val _result = MutableStateFlow("")
+  val result: StateFlow<String> = _result
 
-sealed interface MainScreenUiState {
-  object Loading : MainScreenUiState
-
-  data class Error(val throwable: Throwable) : MainScreenUiState
-
-  data class Success(val data: List<String>) : MainScreenUiState
+  fun analyzeImage(bitmap: Bitmap) {
+    val out = classifier.analyze(bitmap)
+    val benign = out[0]
+    val malignant = out[1]
+    
+    _result.value = if (malignant > benign) {
+        "Prediction: Malignant (${(malignant * 100).toInt()}%)"
+    } else {
+        "Prediction: Benign (${(benign * 100).toInt()}%)"
+    }
+  }
 }
