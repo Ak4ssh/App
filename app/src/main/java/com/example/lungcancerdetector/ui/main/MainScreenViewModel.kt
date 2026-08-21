@@ -15,6 +15,10 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
 
   fun analyzeImage(bitmap: Bitmap) {
     val out = classifier.analyze(bitmap)
+    val p1 = (out[0] * 100).toInt()
+    val p2 = (out[1] * 100).toInt()
+    val p3 = (out[2] * 100).toInt()
+    
     var maxIdx = 0
     var maxVal = out[0]
     for (i in 1..2) {
@@ -25,12 +29,12 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     }
     
     val label = when (maxIdx) {
-        0 -> "Benign"
-        1 -> "Malignant"
-        2 -> "Normal"
+        0 -> "Type 1"
+        1 -> "Type 2"
+        2 -> "Type 3"
         else -> "Unknown"
     }
     
-    _result.value = "Prediction: $label (${(maxVal * 100).toInt()}%)"
+    _result.value = "Prediction: $label\nT1: $p1% | T2: $p2% | T3: $p3%"
   }
 }
