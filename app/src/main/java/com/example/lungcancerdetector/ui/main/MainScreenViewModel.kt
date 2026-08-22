@@ -7,17 +7,24 @@ import com.example.lungcancerdetector.data.Classifier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+data class PredictionResult(
+    val label: String,
+    val acaConfidence: Float,
+    val benignConfidence: Float,
+    val sccConfidence: Float
+)
+
 class MainScreenViewModel(application: Application) : AndroidViewModel(application) {
   private val classifier = Classifier(application)
   
-  private val _result = MutableStateFlow("")
-  val result: StateFlow<String> = _result
+  private val _result = MutableStateFlow<PredictionResult?>(null)
+  val result: StateFlow<PredictionResult?> = _result
 
   fun analyzeImage(bitmap: Bitmap) {
     val out = classifier.analyze(bitmap)
-    val p1 = (out[0] * 100).toInt()
-    val p2 = (out[1] * 100).toInt()
-    val p3 = (out[2] * 100).toInt()
+    val pACA = out[0]
+    val pBenign = out[1]
+    val pSCC = out[2]
     
     var maxIdx = 0
     var maxVal = out[0]
@@ -35,6 +42,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         else -> "Unknown"
     }
     
-    _result.value = "Prediction: $label\nACA: $p1% | Benign: $p2% | SCC: $p3%"
+    _result.value = PredictionResult(
+        label = label,
+        acaConfidence = pACA,
+        benignConfidence = pBenign,
+        sccConfidence = pSCC
+    )
   }
 }
