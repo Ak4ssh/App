@@ -61,6 +61,12 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         benignConfidence = pBenign,
         sccConfidence = pSCC
     )
+    _history.value = _history.value + ScanRecord(
+        label = label,
+        aca = pACA,
+        benign = pBenign,
+        scc = pSCC
+    )
     } catch (e: Exception) {
         _error.value = "Failed to analyze: ${e.message}"
     }
