@@ -7,4 +7,6 @@ data class ScanRecord(
     val benign: Float,
     val scc: Float,
     val timestamp: Long = System.currentTimeMillis()
-)
+) {
+    fun isMalignant(): Boolean = label != "Benign"
+}
