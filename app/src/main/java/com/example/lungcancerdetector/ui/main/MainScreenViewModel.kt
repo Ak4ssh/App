@@ -23,8 +23,13 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
   private val _loading = MutableStateFlow(false)
   val loading: StateFlow<Boolean> = _loading
 
+  private val _error = MutableStateFlow<String?>(null)
+  val error: StateFlow<String?> = _error
+
   fun analyzeImage(bitmap: Bitmap) {
     _loading.value = true
+    _error.value = null
+    try {
     val out = classifier.analyze(bitmap)
     val pACA = out[0]
     val pBenign = out[1]
@@ -52,6 +57,9 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         benignConfidence = pBenign,
         sccConfidence = pSCC
     )
+    } catch (e: Exception) {
+        _error.value = "Failed to analyze: ${e.message}"
+    }
     _loading.value = false
   }
 }
