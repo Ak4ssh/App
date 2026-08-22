@@ -36,6 +36,7 @@ fun MainScreen(
   val context = LocalContext.current
   var imageUri by remember { mutableStateOf<Uri?>(null) }
   val result by viewModel.result.collectAsStateWithLifecycle()
+  val loading by viewModel.loading.collectAsStateWithLifecycle()
   
   val picker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
     if (uri != null) {
@@ -105,8 +106,12 @@ fun MainScreen(
           }
           
           Spacer(modifier = Modifier.height(32.dp))
+
+          if (loading) {
+              CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+              Spacer(modifier = Modifier.height(16.dp))
+          }
           
-          // Results Section
           result?.let { prediction ->
               Card(
                   modifier = Modifier.fillMaxWidth(),
