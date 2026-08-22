@@ -48,4 +48,9 @@ class Classifier(context: Context) {
 
         return output[0]
     }
+
+    fun close() {
+        tflite?.close()
+        tflite = null
+    }
 }
