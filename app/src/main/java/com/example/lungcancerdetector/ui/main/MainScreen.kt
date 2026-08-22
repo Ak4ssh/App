@@ -140,7 +140,7 @@ fun MainScreen(
                   AsyncImage(
                       model = imageUri,
                       contentDescription = "Selected Image",
-                      modifier = Modifier.fillMaxSize(),
+                      modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(16.dp)),
                       contentScale = ContentScale.Crop
                   )
               }
