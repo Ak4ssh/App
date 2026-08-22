@@ -19,9 +19,9 @@ fun AboutScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("LungScan AI", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
+        Text(com.example.lungcancerdetector.AppConfig.APP_NAME, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        Text("v1.0.0", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.outline)
+        Text("v${com.example.lungcancerdetector.AppConfig.VERSION}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.outline)
         Spacer(modifier = Modifier.height(32.dp))
 
         Card(
