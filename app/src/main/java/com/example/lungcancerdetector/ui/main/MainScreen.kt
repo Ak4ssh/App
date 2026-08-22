@@ -119,7 +119,7 @@ fun MainScreen(
                   .height(300.dp)
                   .clickable { picker.launch("image/*") },
               shape = RoundedCornerShape(16.dp),
-              elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+              elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
               colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
           ) {
               if (imageUri == null) {
