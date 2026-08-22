@@ -12,7 +12,8 @@ data class PredictionResult(
     val label: String,
     val acaConfidence: Float,
     val benignConfidence: Float,
-    val sccConfidence: Float
+    val sccConfidence: Float,
+    val maxConfidence: Float = maxOf(acaConfidence, benignConfidence, sccConfidence)
 )
 
 class MainScreenViewModel(application: Application) : AndroidViewModel(application) {
