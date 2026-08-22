@@ -125,6 +125,22 @@ fun MainScreen(
                       Text("Primary Diagnosis", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
                       Spacer(modifier = Modifier.height(8.dp))
                       Text(prediction.label, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                      Spacer(modifier = Modifier.height(8.dp))
+                      val isBenign = prediction.label == "Benign"
+                      val badgeColor = if (isBenign) com.example.lungcancerdetector.theme.SafeGreen else com.example.lungcancerdetector.theme.DangerRed
+                      val badgeText = if (isBenign) "Safe" else "Malignant"
+                      Surface(
+                          color = badgeColor.copy(alpha = 0.15f),
+                          shape = RoundedCornerShape(8.dp)
+                      ) {
+                          Text(
+                              badgeText,
+                              modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                              color = badgeColor,
+                              fontWeight = FontWeight.Bold,
+                              style = MaterialTheme.typography.labelMedium
+                          )
+                      }
                       
                       Spacer(modifier = Modifier.height(24.dp))
                       Text("Confidence Breakdown", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.outline)
