@@ -37,6 +37,7 @@ fun MainScreen(
   var imageUri by remember { mutableStateOf<Uri?>(null) }
   val result by viewModel.result.collectAsStateWithLifecycle()
   val loading by viewModel.loading.collectAsStateWithLifecycle()
+  val error by viewModel.error.collectAsStateWithLifecycle()
   
   val picker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
     if (uri != null) {
@@ -109,6 +110,17 @@ fun MainScreen(
 
           if (loading) {
               CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+              Spacer(modifier = Modifier.height(16.dp))
+          }
+
+          error?.let { msg ->
+              Card(
+                  modifier = Modifier.fillMaxWidth(),
+                  colors = CardDefaults.cardColors(containerColor = com.example.lungcancerdetector.theme.DangerRed.copy(alpha = 0.1f)),
+                  shape = RoundedCornerShape(12.dp)
+              ) {
+                  Text(msg, modifier = Modifier.padding(16.dp), color = com.example.lungcancerdetector.theme.DangerRed)
+              }
               Spacer(modifier = Modifier.height(16.dp))
           }
           
