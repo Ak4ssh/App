@@ -58,7 +58,7 @@ fun MainScreen(
   Scaffold(
       topBar = {
           TopAppBar(
-              title = { Text("LungScan AI", fontWeight = FontWeight.Bold) },
+              title = { Text(com.example.lungcancerdetector.AppConfig.APP_NAME, fontWeight = FontWeight.Bold) },
               colors = TopAppBarDefaults.topAppBarColors(
                   containerColor = MaterialTheme.colorScheme.primaryContainer,
                   titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
