@@ -76,7 +76,15 @@ fun MainScreen(
               NavigationBarItem(
                   selected = tab == 1,
                   onClick = { tab = 1 },
-                  icon = { Text("\uD83D\uDCCB") },
+                  icon = {
+                      if (history.isNotEmpty()) {
+                          BadgedBox(badge = { Badge { Text("${history.size}") } }) {
+                              Text("\uD83D\uDCCB")
+                          }
+                      } else {
+                          Text("\uD83D\uDCCB")
+                      }
+                  },
                   label = { Text("History") }
               )
               NavigationBarItem(
