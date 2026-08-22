@@ -55,10 +55,16 @@ fun HistoryItem(record: ScanRecord) {
     val fmt = SimpleDateFormat("MMM dd, hh:mm a", Locale.getDefault())
     val date = fmt.format(Date(record.timestamp))
 
+    val tint = if (record.isMalignant())
+        com.example.lungcancerdetector.theme.DangerRed.copy(alpha = 0.08f)
+    else
+        com.example.lungcancerdetector.theme.SafeGreen.copy(alpha = 0.08f)
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(containerColor = tint)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
