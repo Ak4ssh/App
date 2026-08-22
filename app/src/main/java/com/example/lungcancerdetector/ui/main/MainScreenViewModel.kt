@@ -4,6 +4,7 @@ import android.app.Application
 import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import com.example.lungcancerdetector.data.Classifier
+import com.example.lungcancerdetector.data.ScanRecord
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -25,6 +26,9 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
 
   private val _error = MutableStateFlow<String?>(null)
   val error: StateFlow<String?> = _error
+
+  private val _history = MutableStateFlow<List<ScanRecord>>(emptyList())
+  val history: StateFlow<List<ScanRecord>> = _history
 
   fun analyzeImage(bitmap: Bitmap) {
     _loading.value = true
