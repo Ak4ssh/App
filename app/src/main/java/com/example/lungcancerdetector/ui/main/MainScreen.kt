@@ -169,46 +169,51 @@ fun MainScreen(
               Spacer(modifier = Modifier.height(16.dp))
           }
           
-          result?.let { prediction ->
-              Card(
-                  modifier = Modifier.fillMaxWidth(),
-                  shape = RoundedCornerShape(16.dp),
-                  elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                  colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
-              ) {
-                  Column(
-                      modifier = Modifier.padding(24.dp)
+          androidx.compose.animation.AnimatedVisibility(
+              visible = result != null,
+              enter = androidx.compose.animation.expandVertically() + androidx.compose.animation.fadeIn()
+          ) {
+              result?.let { prediction ->
+                  Card(
+                      modifier = Modifier.fillMaxWidth(),
+                      shape = RoundedCornerShape(16.dp),
+                      elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                      colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
                   ) {
-                      Text("Primary Diagnosis", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
-                      Spacer(modifier = Modifier.height(8.dp))
-                      Text(prediction.label, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-                      Text("${(prediction.maxConfidence * 100).toInt()}% confidence", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.outline)
-                      Spacer(modifier = Modifier.height(8.dp))
-                      val isBenign = prediction.label == "Benign"
-                      val badgeColor = if (isBenign) com.example.lungcancerdetector.theme.SafeGreen else com.example.lungcancerdetector.theme.DangerRed
-                      val badgeText = if (isBenign) "Safe" else "Malignant"
-                      Surface(
-                          color = badgeColor.copy(alpha = 0.15f),
-                          shape = RoundedCornerShape(8.dp)
+                      Column(
+                          modifier = Modifier.padding(24.dp)
                       ) {
-                          Text(
-                              badgeText,
-                              modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
-                              color = badgeColor,
-                              fontWeight = FontWeight.Bold,
-                              style = MaterialTheme.typography.labelMedium
-                          )
+                          Text("Primary Diagnosis", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+                          Spacer(modifier = Modifier.height(8.dp))
+                          Text(prediction.label, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                          Text("${(prediction.maxConfidence * 100).toInt()}% confidence", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.outline)
+                          Spacer(modifier = Modifier.height(8.dp))
+                          val isBenign = prediction.label == "Benign"
+                          val badgeColor = if (isBenign) com.example.lungcancerdetector.theme.SafeGreen else com.example.lungcancerdetector.theme.DangerRed
+                          val badgeText = if (isBenign) "Safe" else "Malignant"
+                          Surface(
+                              color = badgeColor.copy(alpha = 0.15f),
+                              shape = RoundedCornerShape(8.dp)
+                          ) {
+                              Text(
+                                  badgeText,
+                                  modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                                  color = badgeColor,
+                                  fontWeight = FontWeight.Bold,
+                                  style = MaterialTheme.typography.labelMedium
+                              )
+                          }
+                          
+                          Spacer(modifier = Modifier.height(24.dp))
+                          Text("Confidence Breakdown", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.outline)
+                          Spacer(modifier = Modifier.height(16.dp))
+                          
+                          ConfidenceBar("Adenocarcinoma (ACA)", prediction.acaConfidence, MaterialTheme.colorScheme.error)
+                          Spacer(modifier = Modifier.height(12.dp))
+                          ConfidenceBar("Benign Tissue", prediction.benignConfidence, com.example.lungcancerdetector.theme.SafeGreen)
+                          Spacer(modifier = Modifier.height(12.dp))
+                          ConfidenceBar("Squamous Cell (SCC)", prediction.sccConfidence, com.example.lungcancerdetector.theme.WarnOrange)
                       }
-                      
-                      Spacer(modifier = Modifier.height(24.dp))
-                      Text("Confidence Breakdown", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.outline)
-                      Spacer(modifier = Modifier.height(16.dp))
-                      
-                      ConfidenceBar("Adenocarcinoma (ACA)", prediction.acaConfidence, MaterialTheme.colorScheme.error)
-                      Spacer(modifier = Modifier.height(12.dp))
-                      ConfidenceBar("Benign Tissue", prediction.benignConfidence, com.example.lungcancerdetector.theme.SafeGreen)
-                      Spacer(modifier = Modifier.height(12.dp))
-                      ConfidenceBar("Squamous Cell (SCC)", prediction.sccConfidence, com.example.lungcancerdetector.theme.WarnOrange)
                   }
               }
           }
