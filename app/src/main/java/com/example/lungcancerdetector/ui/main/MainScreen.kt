@@ -38,6 +38,8 @@ fun MainScreen(
   val result by viewModel.result.collectAsStateWithLifecycle()
   val loading by viewModel.loading.collectAsStateWithLifecycle()
   val error by viewModel.error.collectAsStateWithLifecycle()
+  val history by viewModel.history.collectAsStateWithLifecycle()
+  var tab by remember { mutableIntStateOf(0) }
   
   val picker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
     if (uri != null) {
@@ -62,8 +64,28 @@ fun MainScreen(
                   titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
               )
           )
+      },
+      bottomBar = {
+          NavigationBar {
+              NavigationBarItem(
+                  selected = tab == 0,
+                  onClick = { tab = 0 },
+                  icon = { Text("\uD83D\uDD2C") },
+                  label = { Text("Scan") }
+              )
+              NavigationBarItem(
+                  selected = tab == 1,
+                  onClick = { tab = 1 },
+                  icon = { Text("\uD83D\uDCCB") },
+                  label = { Text("History") }
+              )
+          }
       }
   ) { paddingValues ->
+      if (tab == 1) {
+          com.example.lungcancerdetector.ui.history.HistoryScreen(records = history)
+          return@Scaffold
+      }
       Column(
         modifier = modifier
             .fillMaxSize()
