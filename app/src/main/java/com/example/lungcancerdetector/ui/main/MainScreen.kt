@@ -79,11 +79,21 @@ fun MainScreen(
                   icon = { Text("\uD83D\uDCCB") },
                   label = { Text("History") }
               )
+              NavigationBarItem(
+                  selected = tab == 2,
+                  onClick = { tab = 2 },
+                  icon = { Text("\u2139\uFE0F") },
+                  label = { Text("About") }
+              )
           }
       }
   ) { paddingValues ->
       if (tab == 1) {
           com.example.lungcancerdetector.ui.history.HistoryScreen(records = history)
+          return@Scaffold
+      }
+      if (tab == 2) {
+          com.example.lungcancerdetector.ui.about.AboutScreen()
           return@Scaffold
       }
       Column(
