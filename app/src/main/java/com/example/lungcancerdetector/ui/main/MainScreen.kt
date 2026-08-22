@@ -130,11 +130,11 @@ fun MainScreen(
                       Text("Confidence Breakdown", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.outline)
                       Spacer(modifier = Modifier.height(16.dp))
                       
-                      ConfidenceBar("Adenocarcinoma (ACA)", prediction.acaConfidence)
+                      ConfidenceBar("Adenocarcinoma (ACA)", prediction.acaConfidence, MaterialTheme.colorScheme.error)
                       Spacer(modifier = Modifier.height(12.dp))
-                      ConfidenceBar("Benign Tissue", prediction.benignConfidence)
+                      ConfidenceBar("Benign Tissue", prediction.benignConfidence, com.example.lungcancerdetector.theme.SafeGreen)
                       Spacer(modifier = Modifier.height(12.dp))
-                      ConfidenceBar("Squamous Cell (SCC)", prediction.sccConfidence)
+                      ConfidenceBar("Squamous Cell (SCC)", prediction.sccConfidence, com.example.lungcancerdetector.theme.WarnOrange)
                   }
               }
           }
@@ -156,7 +156,7 @@ fun MainScreen(
 }
 
 @Composable
-fun ConfidenceBar(label: String, confidence: Float) {
+fun ConfidenceBar(label: String, confidence: Float, barColor: androidx.compose.ui.graphics.Color) {
     val animatedProgress by animateFloatAsState(targetValue = confidence, label = "progress")
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
@@ -173,6 +173,8 @@ fun ConfidenceBar(label: String, confidence: Float) {
                 .fillMaxWidth()
                 .height(8.dp)
                 .clip(RoundedCornerShape(4.dp)),
+            color = barColor,
+            trackColor = barColor.copy(alpha = 0.15f)
         )
     }
 }
