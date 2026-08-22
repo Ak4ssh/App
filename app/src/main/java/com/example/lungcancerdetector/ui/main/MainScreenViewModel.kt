@@ -20,7 +20,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
   private val _result = MutableStateFlow<PredictionResult?>(null)
   val result: StateFlow<PredictionResult?> = _result
 
+  private val _loading = MutableStateFlow(false)
+  val loading: StateFlow<Boolean> = _loading
+
   fun analyzeImage(bitmap: Bitmap) {
+    _loading.value = true
     val out = classifier.analyze(bitmap)
     val pACA = out[0]
     val pBenign = out[1]
@@ -48,5 +52,6 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         benignConfidence = pBenign,
         sccConfidence = pSCC
     )
+    _loading.value = false
   }
 }
