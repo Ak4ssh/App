@@ -29,12 +29,12 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     }
     
     val label = when (maxIdx) {
-        0 -> "Type 1"
-        1 -> "Type 2"
-        2 -> "Type 3"
+        0 -> "Adenocarcinoma"
+        1 -> "Benign"
+        2 -> "Squamous Cell Carcinoma"
         else -> "Unknown"
     }
     
-    _result.value = "Prediction: $label\nT1: $p1% | T2: $p2% | T3: $p3%"
+    _result.value = "Prediction: $label\nACA: $p1% | Benign: $p2% | SCC: $p3%"
   }
 }
