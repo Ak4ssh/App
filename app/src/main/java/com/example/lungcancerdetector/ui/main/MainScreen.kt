@@ -123,18 +123,23 @@ fun MainScreen(
               colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
           ) {
               if (imageUri == null) {
-                  Column(
-                      modifier = Modifier.fillMaxSize(),
-                      verticalArrangement = Arrangement.Center,
-                      horizontalAlignment = Alignment.CenterHorizontally
+                  androidx.compose.animation.AnimatedVisibility(
+                      visible = true,
+                      enter = androidx.compose.animation.fadeIn()
                   ) {
-                      Text(
-                          text = "+",
-                          style = MaterialTheme.typography.displayLarge,
-                          color = MaterialTheme.colorScheme.primary
-                      )
-                      Spacer(modifier = Modifier.height(16.dp))
-                      Text("Tap to upload histological slide", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                      Column(
+                          modifier = Modifier.fillMaxSize(),
+                          verticalArrangement = Arrangement.Center,
+                          horizontalAlignment = Alignment.CenterHorizontally
+                      ) {
+                          Text(
+                              text = "+",
+                              style = MaterialTheme.typography.displayLarge,
+                              color = MaterialTheme.colorScheme.primary
+                          )
+                          Spacer(modifier = Modifier.height(16.dp))
+                          Text("Tap to upload histological slide", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                      }
                   }
               } else {
                   AsyncImage(
