@@ -62,4 +62,9 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     }
     _loading.value = false
   }
+
+  override fun onCleared() {
+    super.onCleared()
+    classifier.close()
+  }
 }
