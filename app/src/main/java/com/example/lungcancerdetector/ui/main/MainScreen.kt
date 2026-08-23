@@ -250,8 +250,8 @@ fun ConfidenceBar(label: String, confidence: Float, barColor: androidx.compose.u
             progress = { animatedProgress },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(8.dp)
-                .clip(RoundedCornerShape(4.dp)),
+                .height(10.dp)
+                .clip(RoundedCornerShape(50.dp)),
             color = barColor,
             trackColor = barColor.copy(alpha = 0.15f)
         )
