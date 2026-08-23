@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -94,7 +95,12 @@ fun MainScreen(
               NavigationBarItem(
                   selected = tab == 2,
                   onClick = { tab = 2 },
-                  icon = { Text("\u2139\uFE0F") },
+                  icon = {
+                      androidx.compose.material3.Icon(
+                          imageVector = androidx.compose.material.icons.Icons.Default.Info,
+                          contentDescription = "About"
+                      )
+                  },
                   label = { Text("About") }
               )
           }
