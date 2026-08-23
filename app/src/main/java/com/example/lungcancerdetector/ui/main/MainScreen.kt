@@ -12,6 +12,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -145,10 +147,11 @@ fun MainScreen(
                           verticalArrangement = Arrangement.Center,
                           horizontalAlignment = Alignment.CenterHorizontally
                       ) {
-                          Text(
-                              text = "+",
-                              style = MaterialTheme.typography.displayLarge,
-                              color = MaterialTheme.colorScheme.primary
+                          androidx.compose.material3.Icon(
+                              imageVector = androidx.compose.material.icons.Icons.Default.AddCircle,
+                              contentDescription = "Upload",
+                              modifier = Modifier.size(64.dp),
+                              tint = MaterialTheme.colorScheme.primary
                           )
                           Spacer(modifier = Modifier.height(16.dp))
                           Text("Tap to upload histological slide", color = MaterialTheme.colorScheme.onSurfaceVariant)
