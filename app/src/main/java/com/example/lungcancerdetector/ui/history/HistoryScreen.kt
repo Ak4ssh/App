@@ -51,7 +51,7 @@ fun HistoryScreen(records: List<ScanRecord>) {
 }
 
 @Composable
-fun HistoryItem(record: ScanRecord) {
+fun HistoryItemCard(record: ScanRecord) {
     val fmt = SimpleDateFormat("MMM dd, hh:mm a", Locale.getDefault())
     val date = fmt.format(Date(record.timestamp))
 
@@ -75,11 +75,14 @@ fun HistoryItem(record: ScanRecord) {
                 Text(date, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline)
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                "ACA: ${(record.aca * 100).toInt()}% | Benign: ${(record.benign * 100).toInt()}% | SCC: ${(record.scc * 100).toInt()}%",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text("ACA: ${(record.aca * 100).toInt()}%", style = MaterialTheme.typography.bodySmall)
+                Text("Benign: ${(record.benign * 100).toInt()}%", style = MaterialTheme.typography.bodySmall)
+                Text("SCC: ${(record.scc * 100).toInt()}%", style = MaterialTheme.typography.bodySmall)
+            }
         }
     }
 }
