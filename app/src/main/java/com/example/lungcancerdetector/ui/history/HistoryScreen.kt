@@ -13,6 +13,8 @@ import com.example.lungcancerdetector.data.ScanRecord
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.List
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,13 +31,24 @@ fun HistoryScreen(records: List<ScanRecord>) {
         }
     ) { pad ->
         if (records.isEmpty()) {
-            Box(modifier = Modifier.fillMaxSize().padding(pad)) {
-                Text(
-                    "No scans yet",
-                    modifier = Modifier.padding(24.dp),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.outline
-                )
+            Box(
+                modifier = Modifier.fillMaxSize().padding(pad),
+                contentAlignment = androidx.compose.ui.Alignment.Center
+            ) {
+                Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
+                    androidx.compose.material3.Icon(
+                        imageVector = androidx.compose.material.icons.Icons.Default.List,
+                        contentDescription = "Empty History",
+                        modifier = Modifier.size(64.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        "No scans yet",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
         } else {
             LazyColumn(
@@ -43,7 +56,7 @@ fun HistoryScreen(records: List<ScanRecord>) {
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(records.reversed()) { record ->
-                    HistoryItem(record)
+                    HistoryItemCard(record)
                 }
             }
         }
