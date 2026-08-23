@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -128,7 +129,19 @@ fun MainScreen(
                       enter = androidx.compose.animation.fadeIn()
                   ) {
                       Column(
-                          modifier = Modifier.fillMaxSize(),
+                          modifier = Modifier
+                              .fillMaxSize()
+                              .padding(16.dp)
+                              .drawBehind {
+                                  drawRoundRect(
+                                      color = androidx.compose.ui.graphics.Color.Gray,
+                                      style = androidx.compose.ui.graphics.drawscope.Stroke(
+                                          width = 2.dp.toPx(),
+                                          pathEffect = androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(20f, 20f))
+                                      ),
+                                      cornerRadius = androidx.compose.ui.geometry.CornerRadius(16.dp.toPx())
+                                  )
+                              },
                           verticalArrangement = Arrangement.Center,
                           horizontalAlignment = Alignment.CenterHorizontally
                       ) {
