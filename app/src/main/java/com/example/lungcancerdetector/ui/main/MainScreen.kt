@@ -68,6 +68,7 @@ fun MainScreen(
               )
           )
       },
+      containerColor = MaterialTheme.colorScheme.background,
       bottomBar = {
           NavigationBar {
               NavigationBarItem(
