@@ -248,6 +248,17 @@ fun MainScreen(
               }
           }
           
+          androidx.compose.animation.AnimatedVisibility(
+              visible = result != null,
+              enter = androidx.compose.animation.fadeIn()
+          ) {
+              Column(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                  OutlinedButton(onClick = { picker.launch("image/*") }) {
+                      Text("Scan Another Slide")
+                  }
+              }
+          }
+
           Spacer(modifier = Modifier.weight(1f))
           
           // Action Button
