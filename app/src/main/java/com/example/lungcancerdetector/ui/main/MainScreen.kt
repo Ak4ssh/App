@@ -177,7 +177,14 @@ fun MainScreen(
           Spacer(modifier = Modifier.height(32.dp))
 
           if (loading) {
-              CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+              Column(
+                  horizontalAlignment = Alignment.CenterHorizontally,
+                  modifier = Modifier.padding(16.dp)
+              ) {
+                  CircularProgressIndicator()
+                  Spacer(modifier = Modifier.height(16.dp))
+                  Text("Analyzing slide...", color = MaterialTheme.colorScheme.onSurfaceVariant)
+              }
               Spacer(modifier = Modifier.height(16.dp))
           }
 
