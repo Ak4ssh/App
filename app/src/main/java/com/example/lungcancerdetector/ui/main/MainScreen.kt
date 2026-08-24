@@ -107,7 +107,10 @@ fun MainScreen(
       }
   ) { paddingValues ->
       if (tab == 1) {
-          com.example.lungcancerdetector.ui.history.HistoryScreen(records = history)
+          com.example.lungcancerdetector.ui.history.HistoryScreen(
+              records = history,
+              onClearHistory = { viewModel.clearHistory() }
+          )
           return@Scaffold
       }
       if (tab == 2) {
