@@ -224,7 +224,16 @@ fun MainScreen(
                               verticalAlignment = Alignment.CenterVertically
                           ) {
                               Text("Primary Diagnosis", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
-                              IconButton(onClick = { /* TODO: Implement Share */ }) {
+                              val context = LocalContext.current
+                              IconButton(onClick = {
+                                  val sendIntent: android.content.Intent = android.content.Intent().apply {
+                                      action = android.content.Intent.ACTION_SEND
+                                      putExtra(android.content.Intent.EXTRA_TEXT, "LungScan AI Diagnosis: ${prediction.label} (${(prediction.maxConfidence * 100).toInt()}% confidence).")
+                                      type = "text/plain"
+                                  }
+                                  val shareIntent = android.content.Intent.createChooser(sendIntent, null)
+                                  context.startActivity(shareIntent)
+                              }) {
                                   androidx.compose.material3.Icon(
                                       imageVector = androidx.compose.material.icons.Icons.Default.Share,
                                       contentDescription = "Share Result",
