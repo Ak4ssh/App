@@ -144,6 +144,7 @@ fun MainScreen(
                           modifier = Modifier
                               .fillMaxSize()
                               .padding(16.dp)
+                              .clickable { picker.launch("image/*") }
                               .drawBehind {
                                   drawRoundRect(
                                       color = androidx.compose.ui.graphics.Color.Gray,
