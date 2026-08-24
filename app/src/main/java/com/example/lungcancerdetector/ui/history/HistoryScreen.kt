@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,6 +22,31 @@ import androidx.compose.material.icons.filled.Delete
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(records: List<ScanRecord>, onClearHistory: () -> Unit = {}) {
+    var showDialog by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text("Clear History") },
+            text = { Text("Are you sure you want to delete all scan records? This action cannot be undone.") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onClearHistory()
+                        showDialog = false
+                    }
+                ) {
+                    Text("Clear", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -30,7 +57,7 @@ fun HistoryScreen(records: List<ScanRecord>, onClearHistory: () -> Unit = {}) {
                 ),
                 actions = {
                     if (records.isNotEmpty()) {
-                        IconButton(onClick = onClearHistory) {
+                        IconButton(onClick = { showDialog = true }) {
                             androidx.compose.material3.Icon(
                                 imageVector = androidx.compose.material.icons.Icons.Default.Delete,
                                 contentDescription = "Clear History"
