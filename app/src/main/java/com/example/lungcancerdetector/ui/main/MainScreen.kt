@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -217,7 +218,20 @@ fun MainScreen(
                       Column(
                           modifier = Modifier.padding(24.dp)
                       ) {
-                          Text("Primary Diagnosis", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+                          Row(
+                              modifier = Modifier.fillMaxWidth(),
+                              horizontalArrangement = Arrangement.SpaceBetween,
+                              verticalAlignment = Alignment.CenterVertically
+                          ) {
+                              Text("Primary Diagnosis", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+                              IconButton(onClick = { /* TODO: Implement Share */ }) {
+                                  androidx.compose.material3.Icon(
+                                      imageVector = androidx.compose.material.icons.Icons.Default.Share,
+                                      contentDescription = "Share Result",
+                                      tint = MaterialTheme.colorScheme.primary
+                                  )
+                              }
+                          }
                           Spacer(modifier = Modifier.height(8.dp))
                           Text(prediction.label, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
                           val isBenign = prediction.label == "Benign"
