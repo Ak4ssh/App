@@ -29,7 +29,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
   val error: StateFlow<String?> = _error
 
   private val _history = MutableStateFlow<List<ScanRecord>>(emptyList())
-  val history: StateFlow<List<ScanRecord>> = _history
+  val history: StateFlow<List<ScanRecord>> = _history.asStateFlow()
+
+  fun clearHistory() {
+      _history.value = emptyList()
+  }
 
   fun analyzeImage(bitmap: Bitmap) {
     _loading.value = true
