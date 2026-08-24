@@ -15,10 +15,11 @@ import java.util.Date
 import java.util.Locale
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Delete
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryScreen(records: List<ScanRecord>) {
+fun HistoryScreen(records: List<ScanRecord>, onClearHistory: () -> Unit = {}) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -26,7 +27,17 @@ fun HistoryScreen(records: List<ScanRecord>) {
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                ),
+                actions = {
+                    if (records.isNotEmpty()) {
+                        IconButton(onClick = onClearHistory) {
+                            androidx.compose.material3.Icon(
+                                imageVector = androidx.compose.material.icons.Icons.Default.Delete,
+                                contentDescription = "Clear History"
+                            )
+                        }
+                    }
+                }
             )
         }
     ) { pad ->
